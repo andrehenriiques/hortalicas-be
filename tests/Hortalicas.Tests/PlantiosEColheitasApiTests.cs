@@ -180,6 +180,34 @@ public class PlantiosEColheitasApiTests : IClassFixture<ApiFactory>
         Assert.Equal(HttpStatusCode.NoContent, (await _client.DeleteAsync($"/api/plantios/{engano.Id}")).StatusCode);
     }
 
+    [Theory]
+    [InlineData("06:30", "06:30:00")]
+    [InlineData("18:05:00", "18:05:00")]
+    public async Task Irrigacao_aceita_hora_do_campo_de_hora_do_navegador(string enviada, string devolvida)
+    {
+        var estufa = await _client.CriarEstufaAsync();
+
+        var resposta = await _client.PostAsync("/api/irrigacoes", new StringContent(
+            $$"""{"estufaId":"{{estufa.Id}}","data":"2026-10-28","horaInicio":"{{enviada}}","duracaoMinutos":30}""",
+            System.Text.Encoding.UTF8, "application/json"));
+
+        var corpo = await resposta.Content.ReadAsStringAsync();
+        Assert.True(resposta.StatusCode == HttpStatusCode.Created, corpo);
+        Assert.Contains($"\"horaInicio\":\"{devolvida}\"", corpo);
+    }
+
+    [Fact]
+    public async Task Irrigacao_com_hora_invalida_devolve_400()
+    {
+        var estufa = await _client.CriarEstufaAsync();
+
+        var resposta = await _client.PostAsync("/api/irrigacoes", new StringContent(
+            $$"""{"estufaId":"{{estufa.Id}}","data":"2026-10-28","horaInicio":"25:99","duracaoMinutos":30}""",
+            System.Text.Encoding.UTF8, "application/json"));
+
+        Assert.Equal(HttpStatusCode.BadRequest, resposta.StatusCode);
+    }
+
     [Fact]
     public async Task Irrigacao_valida_duracao_e_data_futura()
     {

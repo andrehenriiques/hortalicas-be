@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Hortalicas.Api.Data;
+using Hortalicas.Api.Json;
 using Hortalicas.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +9,11 @@ const string CorsFrontLocal = "FrontLocal";
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.Converters.Add(new HoraJsonConverter());
+    });
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => options.SupportNonNullableReferenceTypes());
