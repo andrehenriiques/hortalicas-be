@@ -1,4 +1,6 @@
+using System.Text.Json.Serialization;
 using Hortalicas.Api.Data;
+using Hortalicas.Api.Json;
 using Hortalicas.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,13 +8,29 @@ const string CorsFrontLocal = "FrontLocal";
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.Converters.Add(new HoraJsonConverter());
+    });
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => options.SupportNonNullableReferenceTypes());
 
-builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("Hortalicas"));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("Hortalicas")));
+builder.Services.AddHostedService<MigrarBanco>();
+
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddSingleton<IRelogio, Relogio>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IEstufaService, EstufaService>();
+builder.Services.AddScoped<IHortalicaService, HortalicaService>();
+builder.Services.AddScoped<IPlantioService, PlantioService>();
+builder.Services.AddScoped<IIrrigacaoService, IrrigacaoService>();
+builder.Services.AddScoped<IColheitaService, ColheitaService>();
+builder.Services.AddScoped<IPainelService, PainelService>();
 
 builder.Services.AddCors(options =>
     options.AddPolicy(CorsFrontLocal, policy => policy
