@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F0952923-F76B-4532-9B66-B7756152E3A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hortalicas.Api", "src\Hortalicas.Api\Hortalicas.Api.csproj", "{E4062335-FAE3-409B-8867-B416EF288D77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E2A6F2F3-869B-42C3-8989-FC6CD3C9EC0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hortalicas.Tests", "tests\Hortalicas.Tests\Hortalicas.Tests.csproj", "{0C502186-BEA0-44D6-B271-AC9093E101D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4062335-FAE3-409B-8867-B416EF288D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4062335-FAE3-409B-8867-B416EF288D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4062335-FAE3-409B-8867-B416EF288D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4062335-FAE3-409B-8867-B416EF288D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C502186-BEA0-44D6-B271-AC9093E101D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C502186-BEA0-44D6-B271-AC9093E101D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C502186-BEA0-44D6-B271-AC9093E101D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C502186-BEA0-44D6-B271-AC9093E101D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4062335-FAE3-409B-8867-B416EF288D77} = {F0952923-F76B-4532-9B66-B7756152E3A8}
+		{0C502186-BEA0-44D6-B271-AC9093E101D0} = {E2A6F2F3-869B-42C3-8989-FC6CD3C9EC0B}
+	EndGlobalSection
+EndGlobal
